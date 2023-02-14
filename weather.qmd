@@ -1,0 +1,65 @@
+---
+output: html
+---
+
+```{r}
+library(gdalcubes)
+library(sf)
+library(tidyverse)
+```
+
+
+```{r}
+date <- Sys.Date()
+
+gribs <- paste0("/vsicurl/",
+                "https://noaa-gefs-pds.s3.amazonaws.com/gefs.",
+                format(date, "%Y%m%d"),
+                "/00/atmos/pgrb2ap5/geavg.t00z.pgrb2a.0p50.f",
+                stringr::str_pad(seq(3,240,by=3), 3, pad="0"))
+```
+
+```{r}
+date_time = date + lubridate::hours(seq(3,240,by=3))
+
+# USA box.  Choose any dx, dy, dt you want to aggregate/interpolate!
+v <- cube_view(srs = "EPSG:4326", 
+               extent = list(left = -125, right = -66,top = 49, bottom = 25,
+                              t0= as.character(min(date_time)), 
+                              t1=as.character(max(date_time))),
+               dx = 0.5, dy = 0.5, dt = "PT3H")
+
+
+cube <- create_image_collection(gribs, date_time = date_time)
+```
+
+we can extract values at NEON sites (points) or using any sf polygon.
+
+```{r}
+sites <- readr::read_csv(paste0("https://github.com/eco4cast/neon4cast-noaa-download/",
+                                "raw/master/noaa_download_site_list.csv"))
+sf_sites <- sf::st_as_sf(sites,coords=c("longitude", "latitude"), crs = 4326) |>
+  tibble::rowid_to_column("FID")
+```
+
+
+Now we extract the band of interest
+<https://www.nco.ncep.noaa.gov/pmb/products/gens/gec00.t00z.pgrb2a.0p50.f003.shtml>
+
+```{r}
+bench::bench_time({
+df <- raster_cube(cube, v) |>
+    select_bands("band63") |> 
+    extract_geom(sf_sites) |>
+    as_tibble() |>
+    inner_join(sf_sites) |> 
+    rename(temperature = band63) 
+    }) 
+
+df |>
+    mutate(time = lubridate::as_datetime(time)) |> 
+    filter(site_id %in% unique(site_id)[1:10]) |>
+    ggplot(aes(time, temperature, col=site_id)) + 
+    geom_path(show.legend = FALSE)
+
+```
