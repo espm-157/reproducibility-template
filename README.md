@@ -1,75 +1,29 @@
-# reproducibility tutorial :onion: 
+# A Reproducibility Tutorial
 
-Reproducible workflows are like onions :onion: :cry: :smiling_face_with_tear: :joy:. 
+## Getting Started on GitHub Codespaces
 
-Reproduciblity comes in layers!
+### My Students
 
-- Scripts
-- Packages
-- Containers
+In my tutorials, I will provide a 'magic link' that is the equivalent of the "Use Template" option outlined below for Anyone.
 
+The only difference is that the 'magic link' will create a repository in our course GitHub Organization rather than a location that you choose (such as your own GitHub account). Being associated with the course organization lets the course lets us benefit from Educational Account features and resources, and ensures that I as your instructor have access to private repositories in the Org account. I cannot troubleshoot issues or permissions in repositories where I am not granted access. Click on the magic link I have provided to get started, then proceed to the directions for "Anyone" starting at Step 2.
 
-- Reproducibility is about robust, user friendly, and widely practiced standards.
-- This tutorial is about robust, easy, widely-practiced, well automated standards. 
-- Novelty and creativity are the enemy here. If it feels desperate it probably is. Bridges, not art. to be "trivial" is the highest possible praise.
+### Anyone
 
-## GitHub: Sharing Code
+Anyone can deploy this repository in codespaces by taking advantage of the current [free tier available for all users](https://docs.github.com/en/billing/managing-billing-for-github-codespaces/about-billing-for-github-codespaces), or by using their own codespaces subscription. 
 
+**Step 1**: Click on the green button saying "Use this template". Choose a location (i.e. your own GitHub account) and name for your new repository. This should bring you to a new repository based on this template! It will look nearly the same, but be under a different URL where you can store (push) your work.  Instead of a "Use this template" button, you will now see the green button says "<> Code" (see step 2).
 
+![](https://user-images.githubusercontent.com/222586/218885361-269658a0-308e-4f4f-972e-d918f9cd90de.png)
 
-## Scripts
+**Step 2**: You should now be in your own repository where the Green button says "<> Code" (see screenshot below, lower right)
 
-- Write code, share code.
-- [Project-oriented workflows](https://www.tidyverse.org/blog/2017/12/workflow-vs-script/):
-  - no `setwd()` / no `rm(list=ls())`
-  - Clean starts, good organization, common practices. `usethis`.  (Rstudio users: `usethis::use_blank_slate()`)
+![](https://user-images.githubusercontent.com/222586/218886058-3902196e-f5a0-4345-b2e4-40b4798dd463.png)
 
-- Reproducibility founders most often on externality
+Click Code, select the codespaces tab, and click "Create codespace on main" (screenshot below.  Note only my students will see the "Codespace paid for by espm-288")
+
+![](https://user-images.githubusercontent.com/222586/218886220-e5d25c1d-2ec4-49ef-ad04-bd5a0191672e.png)
 
 
-###  code & software dependencies.  
-  - Be organized. (KISS, functions, `R/`)  
-  - Be explicit. (`library()`. `DESCRIPTION`). 
-  - be pedantic (`renv`)
-  
-### data dependencies & paths
-  - keep your data with code and use relative paths.
-  
-  
-Advanced cases: distributing complex code and large/complex data sets
+Note: if you already have an active codespace on this repository, it will appear here.  If you have too many open codespaces on this or other repository, you may not be able to make a new one until you remove some old ones, see <https://github.com/codespaces> to manage your open codespaces. 
 
-  - If you're writing hundreds of lines of code / managing dozens of files, you have a _software_ project. 
-
-There's a lot of advice about how to manage/organize large 'workflows', mostly in the realm of desperate hacks/shortcuts (i.e. bad software).
-If you want this to go well, be reproducible, robust, etc, it needs to be written following software best practices: unit tests, documentation, modular design, the whole nine yards. It's not hard, what to do is very explicitly laid out, examples are plentiful, as are automated tooling to help, but it is still time consuming. You can follow as much or as little of the best practices for software development as you like, not everything needs to be professional developer quality, but if you can't be bothered to follow these practices, have lower expectations about the reproducibility, robustness, portability, re-usability, etc. Often a project is best distributed by dividing into smaller components.  Perhaps you make some of these robust. reusable elements, and just let other elements be messy. Just don't believe in the free lunch hype.
-
-
-- If you have large custom data files that don't fit on GitHub / etc, you have a _data product_.
-Again, the best practices of the field are relevant here. FAIR repositories, identifier based access, appropriate citations. Scale-based solutions download-free / cloud-native workflows.
-
-(you can also have a software product or a data product that involves only small quantities.  However, such projects are more forgiving)
-
-
-## GitHub Actions
-
-Seeing if work is reproducible. 
-
-## R Package Basics
-
-Leveling up: From Project to Package
-
-## Codespaces: portable compute environments
-
-## Containers
-
-- The Dockerfile, system dependencies, limitations.
-
-## Archiving
-
-- Zenodo DOIs. Alternatives
-
-## Portability & Scale
-
-- Identifiers. content-based identifiers.
-- Data repositories
-- 
